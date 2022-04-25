@@ -1,0 +1,13 @@
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+
+.App{
+  width: 75%;
+  min-height: 100vh;
+  /* max-height: auto; */
+  margin: auto;
+}

@@ -1,0 +1,47 @@
+.serviceCard{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.topBar{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.topBar> div>div{
+    position: absolute;
+    background-color: rgb(238, 234, 234);
+}
+.topBar>div>div>p{
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.topBar>div>div>p:hover{
+    background-color: rgb(226, 225, 225);
+}
+
+.options>button,
+.statusOptions>button
+{
+    pointer-events: none;
+}
+.statusOptions:hover,
+.options:hover
+{
+    cursor: pointer;
+}
+
+.disp{
+    display: none;
+}
+
+.search{
+    display: flex;
+}
+
+.search>input{
+    margin-right: 10px;
+}

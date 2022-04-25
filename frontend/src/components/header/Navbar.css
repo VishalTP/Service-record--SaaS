@@ -1,0 +1,23 @@
+.navBar{
+    display: flex;
+    background-color: #f8f9fa;
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.d-flex{
+    display: flex;
+    align-items: center;
+}
+
+/* @media only screen and (max-width: 800px){
+    .navBar{
+        height: 8vmin;
+    }
+} */
+
+
+
+
