@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Card } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 import {registerUser} from '../../action/userAction'
 
 const NewUser = () => {
@@ -26,6 +27,10 @@ const NewUser = () => {
     }
 
     return (
+        <>
+        <Card.Body className="cardBody">
+        <Link to="/home">Dashboard</Link> / <Link to="/dashboard/list/user">Staffs</Link> / Add Staff
+      </Card.Body>
         <Form>
             <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
@@ -61,6 +66,7 @@ const NewUser = () => {
                 Submit
             </Button>
         </Form>
+        </>
     )
 }
 

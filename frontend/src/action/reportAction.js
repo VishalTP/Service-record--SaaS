@@ -7,7 +7,6 @@ export const getReport = ()=> async (dispatch)=>{
         dispatch({type: reportActionType.GET_REPORT_REQUEST})
 
         const { data } = await axios("/api/v1/admin/serviceReport")
-        console.log(data)
 
         dispatch({type: reportActionType.GET_REPORT_SUCCESS, payload: data})
 

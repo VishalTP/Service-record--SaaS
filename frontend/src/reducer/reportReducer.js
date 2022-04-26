@@ -1,7 +1,7 @@
 import reportActionType from "../actionTypes/reportActionType"
 
 export const reportReducer = (state= {error: null}, action)=>{
-    switch(action){
+    switch(action.type){
         case reportActionType.GET_REPORT_REQUEST:
             return {
                 loading : true

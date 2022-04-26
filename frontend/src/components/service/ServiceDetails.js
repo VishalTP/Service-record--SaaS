@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Card } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { getServiceDetails } from '../../action/serviceAction'
@@ -36,8 +36,21 @@ const ServiceDetails = () => {
                         <Card.Body>Vendor Code: {service.vendor}</Card.Body>
                     </Card  >
 
+                    <Card className="col-md-6">
+                        <Card.Body>Issue: {service.issue}</Card.Body>
+                        <Card.Body>Service Details: {service.serviceDetails}</Card.Body>
+                        <Card.Body>Date: {service.createdAt}</Card.Body>
+                        
+                    </Card  >
+                    <Card className="col-md-6">
+                        <Card.Body>Pending Amount: {service.pendingAmount}</Card.Body>
+                        <Card.Body>Paid Amount: {service.paidAmount}</Card.Body>
+                    </Card  >
+
                 </div>
             }
+            <Button>Add Device</Button>
+
         </>
     )
 }

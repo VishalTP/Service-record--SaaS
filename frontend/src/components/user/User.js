@@ -1,21 +1,25 @@
 import React, { useEffect } from 'react'
-import { Button, Table } from 'react-bootstrap'
+import { Button, Card, Table } from 'react-bootstrap'
 import { useNavigate } from 'react-router'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getAllUser } from '../../action/userAction'
+import { Link } from 'react-router-dom'
 
 const User = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {staffs} = useSelector(state=>state.staff)
+  const { staffs } = useSelector(state => state.staff)
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getAllUser())
   }, [])
 
   return (
     <div>
+      <Card.Body className="cardBody">
+        <Link to="/home">Dashboard</Link> / Staffs
+      </Card.Body>
       <Button onClick={() => navigate("/dashboard/create/user")} >Add Staff</Button>
       <Table striped >
         <thead>

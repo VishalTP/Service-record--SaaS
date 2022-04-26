@@ -75,10 +75,10 @@ const Home = () => {
           <button >Status</button>
           <div ref={statusOptions}  className="disp">
             <p onClick={()=>setStatus("")}>All</p>
-            <p onClick={()=>setStatus("open")}>Open</p>
+            <p onClick={()=>setStatus("Open")}>Open</p>
             <p onClick={()=>setStatus("In Progress")}>In Progress</p>
             <p onClick={()=>setStatus("Closed")}>Closed</p>
-            <p onClick={()=>setStatus("Return")}>Return</p>
+            <p onClick={()=>setStatus("Returned")}>Return</p>
           </div>
         </div>
         <div className="search">
