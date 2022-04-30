@@ -33,7 +33,7 @@ const Pending = () => {
                 </thead>
 
                 <tbody>
-                    {services && services.map((service, i) => <tr>
+                    {services && services.map((service, i) => <tr key={service._id}>
                         <td>{i + 1}</td>
                         <td>{service.name}</td>
                         <td>{service.serviceCode}</td>

@@ -24,8 +24,14 @@ export const serviceReducer = (state ={loading: false, error: null}, action)=>{
                 loading: false,
                 service: action.payload.service
             }
+        case serviceActionType.UPDATE_SERVICE_SUCCESS:
+            return {
+                ...state,
+                success : true
+            }
         case serviceActionType.ALL_SERVICE_FAIL:
         case serviceActionType.SERVICE_DETAILS_FAIL:
+        case serviceActionType.UPDATE_SERVICE_FAIL:
             return {
                 ...state,
                 loading : false,

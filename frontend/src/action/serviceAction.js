@@ -45,3 +45,19 @@ export const getServiceDetails = (id)=> async (dispatch)=>{
         dispatch({type: serviceActionType.SERVICE_DETAILS_FAIL, payload: error.response.data.message})
     }
 }
+
+export const updateService = (id, formData)=> async (dispatch)=>{
+    try {
+        
+        const {data} = await axios.put( 
+            `/api/v1/admin/service/${id}`,
+            formData, 
+            {headers: {"Content-Type": "application/json"}} 
+        ) 
+        
+        dispatch({type: serviceActionType.UPDATE_SERVICE_SUCCESS, payload: data})
+        
+    } catch (error) {
+        dispatch({type: serviceActionType.UPDATE_SERVICE_FAIL, payload: error.response.data.message})
+    }
+}

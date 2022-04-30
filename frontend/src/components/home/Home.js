@@ -78,7 +78,7 @@ const Home = () => {
             <p onClick={()=>setStatus("Open")}>Open</p>
             <p onClick={()=>setStatus("In Progress")}>In Progress</p>
             <p onClick={()=>setStatus("Closed")}>Closed</p>
-            <p onClick={()=>setStatus("Returned")}>Return</p>
+            <p onClick={()=>setStatus("Returned")}>Returned</p>
           </div>
         </div>
         <div className="search">

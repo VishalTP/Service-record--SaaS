@@ -19,6 +19,7 @@ import ProtectedRoute from './route/ProtectedRoute';
 import ServiceDetails from './components/service/ServiceDetails';
 import Report from './components/report/Report';
 import Pending from './components/report/Pending';
+import UpdatePayment from './components/service/UpdatePayment';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           <Route exact path='/dashboard/change-password' element={<ChangePassword />} />
           <Route exact path='/dashboard/report' element={<Report />} />
           <Route exact path='/dashboard/report/pending' element={<Pending />} />
+          <Route exact path='/dashboard/service/update/payment/:id' element={<UpdatePayment />} />
         </Routes>
       </div>
     </BrowserRouter>
