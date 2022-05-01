@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Card } from 'react-bootstrap'
 import { addVendor, getVendor, updateVendor } from '../../action/vendorAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router'
+import { Link } from 'react-router-dom'
 
 const NewVendor = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const params = useParams()
-    const {success, vendor} = useSelector(state=>state.vendor)
+    const { success, vendor } = useSelector(state => state.vendor)
     const [vendorDetails, setVendorDetails] = useState({
         name: "",
         contactPerson: "",
@@ -18,7 +19,7 @@ const NewVendor = () => {
         location: ""
     })
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault()
         const myForm = new FormData()
         myForm.set("name", vendorDetails.name)
@@ -26,24 +27,24 @@ const NewVendor = () => {
         myForm.set("contactNumber", vendorDetails.contactNumber)
         myForm.set("email", vendorDetails.email)
         myForm.set("location", vendorDetails.location)
-        if(params.id)
+        if (params.id)
             dispatch(updateVendor(myForm, params.id))
         else
             dispatch(addVendor(myForm))
     }
 
-    useEffect(()=>{
-        if(success){
+    useEffect(() => {
+        if (success) {
             navigate("/dashboard/vendor")
             return
         }
-        if(params.id){
+        if (params.id) {
             dispatch(getVendor(params.id))
         }
     }, [success])
 
-    useEffect(()=>{
-        if(!vendor) return
+    useEffect(() => {
+        if (!vendor) return
         setVendorDetails({
             name: vendor.name,
             contactPerson: vendor.contactPerson,
@@ -54,56 +55,63 @@ const NewVendor = () => {
     }, [vendor])
 
     return (
-        <Form className="row">
-            <Form.Group className="col-md-4">
-                <Form.Label>Name</Form.Label>
-                <Form.Control 
-                    type="text" 
-                    value={vendorDetails.name}
-                    onChange = {e => setVendorDetails({...vendorDetails, name: e.target.value})}
-                />
-            </Form.Group>
+        <>
+            <Card>
+                <Card.Body className="cardBody">
+                    <Link to="/home">Dashboard</Link> / <Link to="/dashboard/vendor">Vendor</Link> / New Vendor
+                </Card.Body>
+            </Card>
+            <Form className="row">
+                <Form.Group className="col-md-4">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={vendorDetails.name}
+                        onChange={e => setVendorDetails({ ...vendorDetails, name: e.target.value })}
+                    />
+                </Form.Group>
 
-            <Form.Group className="col-md-4">
-                <Form.Label>Contact Person</Form.Label>
-                <Form.Control 
-                    type="text" 
-                    value={vendorDetails.contactPerson} 
-                    onChange = {e => setVendorDetails({...vendorDetails, contactPerson: e.target.value})}
-                />
-            </Form.Group>
+                <Form.Group className="col-md-4">
+                    <Form.Label>Contact Person</Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={vendorDetails.contactPerson}
+                        onChange={e => setVendorDetails({ ...vendorDetails, contactPerson: e.target.value })}
+                    />
+                </Form.Group>
 
-            <Form.Group className="col-md-4">
-                <Form.Label>Contact Number</Form.Label>
-                <Form.Control 
-                    type="number" 
-                    value={vendorDetails.contactNumber} 
-                    onChange = {e => setVendorDetails({...vendorDetails, contactNumber: e.target.value})}
-                />
-            </Form.Group>
+                <Form.Group className="col-md-4">
+                    <Form.Label>Contact Number</Form.Label>
+                    <Form.Control
+                        type="number"
+                        value={vendorDetails.contactNumber}
+                        onChange={e => setVendorDetails({ ...vendorDetails, contactNumber: e.target.value })}
+                    />
+                </Form.Group>
 
-            <Form.Group className="col-md-6">
-                <Form.Label>Email</Form.Label>
-                <Form.Control 
-                    type="email" 
-                    value={vendorDetails.email} 
-                    onChange = {e => setVendorDetails({...vendorDetails, email: e.target.value})}
-                />
-            </Form.Group>
+                <Form.Group className="col-md-6">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                        type="email"
+                        value={vendorDetails.email}
+                        onChange={e => setVendorDetails({ ...vendorDetails, email: e.target.value })}
+                    />
+                </Form.Group>
 
-            <Form.Group className="col-md-6">
-                <Form.Label>Location</Form.Label>
-                <Form.Control 
-                    type="text" 
-                    value={vendorDetails.location} 
-                    onChange = {e => setVendorDetails({...vendorDetails, location: e.target.value})}
-                />
-            </Form.Group>
+                <Form.Group className="col-md-6">
+                    <Form.Label>Location</Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={vendorDetails.location}
+                        onChange={e => setVendorDetails({ ...vendorDetails, location: e.target.value })}
+                    />
+                </Form.Group>
 
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
-                Submit
-            </Button>
-        </Form>
+                <Button variant="primary" type="submit" onClick={handleSubmit}>
+                    Submit
+                </Button>
+            </Form>
+        </>
     )
 }
 

@@ -12,7 +12,7 @@ const Pending = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getAllService())
+        dispatch(getAllService("",'','','', true))
     }, [])
     return (
         <>

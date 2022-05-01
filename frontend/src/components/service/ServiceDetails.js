@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import { getServiceDetails, updateService } from '../../action/serviceAction'
+import DeviceTable from './DeviceTable'
 
 const ServiceDetails = () => {
     const dispatch = useDispatch()
     const params = useParams()
     const navigate = useNavigate()
-    const { service } = useSelector(state => state.service)
+    const { service, devices } = useSelector(state => state.service)
+    const {success} = useSelector(state=> state.device)
 
     const updateStatus = (status) => {
         const myForm = new FormData()
@@ -17,9 +19,12 @@ const ServiceDetails = () => {
         dispatch(updateService(service._id, myForm))
     }
 
+    // useEffect(()=>{
+    //     if(!success) return
+    // }, [success])
     useEffect(() => {
         dispatch(getServiceDetails(params.id))
-    }, [])
+    }, [success])
     return (
         <>
             <Card.Body className="cardBody">
@@ -38,7 +43,6 @@ const ServiceDetails = () => {
                         <Card.Body>Service Code: {service.serviceCode}</Card.Body>
                         <label>Status</label>
                         <select defaultValue={service.status} onChange={e => updateStatus(e.target.value)}>
-                            <option value="">---------</option>
                             <option value="Open">Open</option>
                             <option value="In Progress">In Progress</option>
                             <option value="Closed">Closed</option>
@@ -67,10 +71,12 @@ const ServiceDetails = () => {
                         <button onClick={()=>navigate(`/dashboard/service/update/payment/${service._id}`)}>Edit</button>
                     </Card  >
 
+                    <Button onClick={()=>navigate("/dashboard/service/newDevice")}>Add Device</Button>
                 </div>
             }
-            <Button>Add Device</Button>
-
+            {
+                devices && <DeviceTable devices={devices}/>
+            }
         </>
     )
 }

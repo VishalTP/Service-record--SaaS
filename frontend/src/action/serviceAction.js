@@ -1,12 +1,12 @@
 import axios from 'axios'
 import serviceActionType from '../actionTypes/serviceActionType'
 
-export const getAllService = (vendor="", status="", name="", code="")=> async (dispatch)=>{
+export const getAllService = (vendor="", status="", name="", code="", amt=false)=> async (dispatch)=>{
+    console.log(amt)
     try {
         dispatch({type: serviceActionType.ALL_SERVICE_REQUEST})
         
-        const {data} = await axios(
-            `/api/v1/admin/service${vendor? `?vendor=${vendor}`:""}${status? `?status=${status}`:""}${name? `?name=${name}`:""}${code? `?serviceCode=${code}`:""}`) 
+        const {data} = await axios(`/api/v1/admin/service${vendor? `?vendor=${vendor}`:""}${status? `?status=${status}`:""}${name? `?name=${name}`:""}${code? `?serviceCode=${code}`:""}${amt? `?pendingAmount[gte]=1`:""}`) 
         
         dispatch({type: serviceActionType.ALL_SERVICE_SUCCESS, payload: data})
         
@@ -27,7 +27,6 @@ export const createNewService = (formData)=> async (dispatch)=>{
         dispatch({type: serviceActionType.NEW_SERVICE_SUCCESS, payload: data.success})
         
     } catch (error) {
-        console.log(error)
         dispatch({type: serviceActionType.NEW_SERVICE_FAIL, payload: error.response.data.message})
     }
 }
@@ -59,5 +58,33 @@ export const updateService = (id, formData)=> async (dispatch)=>{
         
     } catch (error) {
         dispatch({type: serviceActionType.UPDATE_SERVICE_FAIL, payload: error.response.data.message})
+    }
+}
+
+export const createNewDevice = (formData)=> async (dispatch)=>{
+    try {
+        dispatch({type: serviceActionType.NEW_DEVICE_REQUEST})
+        
+        const {data} = await axios.post('/api/v1/admin/device/new', 
+            formData, 
+            {headers: {"Content-Type": "application/json"}} 
+        ) 
+        
+        dispatch({type: serviceActionType.NEW_DEVICE_SUCCESS, payload: data.success})
+        
+    } catch (error) {
+        dispatch({type: serviceActionType.NEW_DEVICE_FAIL, payload: error.response.data.message})
+    }
+}
+
+export const deleteDevice = (id)=> async (dispatch)=>{
+    try {
+        
+        const {data} = await axios.delete( `/api/v1/admin/device/${id}` ) 
+        
+        dispatch({type: serviceActionType.DELETE_DEVICE_SUCCESS, payload: data.success})
+        
+    } catch (error) {
+        dispatch({type: serviceActionType.DELETE_DEVICE_FAIL, payload: error.response.data.message})
     }
 }

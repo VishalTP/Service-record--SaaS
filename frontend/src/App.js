@@ -20,6 +20,7 @@ import ServiceDetails from './components/service/ServiceDetails';
 import Report from './components/report/Report';
 import Pending from './components/report/Pending';
 import UpdatePayment from './components/service/UpdatePayment';
+import NewDevice from './components/service/NewDevice';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route exact path='/' element={<UserLogin />} />
           <Route exact path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route exact path='/dashboard/service/create' element={<NewService />} />
+          <Route exact path='/dashboard/service/newDevice' element={<NewDevice />} />
           <Route exact path='/dashboard/service/:id' element={<ServiceDetails />} />
           <Route exact path='/dashboard/product/list/:id' element={<Products />} />
           <Route exact path='/dashboard/product/list' element={<Products />} />
