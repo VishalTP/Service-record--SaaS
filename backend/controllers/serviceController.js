@@ -92,6 +92,37 @@ exports.deleteDevice = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+exports.updateDevice = catchAsyncErrors(async (req, res, next) => {
+  let device = await Device.findById(req.params.id);
+
+  if (!device) {
+    return next(new ErrorHander("Device not found", 404));
+  }
+
+  device = await Device.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    device,
+  });
+});
+
+exports.getDeviceDetails = catchAsyncErrors(async (req, res, next) => {
+  const device = await Device.findById(req.params.id);
+
+  if (!device)
+    return next(new ErrorHander("Product not found", 404));
+
+  res.status(200).json({
+    success: true,
+    device: device
+  });
+});
+
 // Update Service -- Admin
 
 exports.updateService = catchAsyncErrors(async (req, res, next) => {

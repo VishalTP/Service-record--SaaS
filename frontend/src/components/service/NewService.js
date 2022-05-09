@@ -17,13 +17,15 @@ const NewService = () => {
   const {products} = useSelector(state=>state.product)
   const {vendors} = useSelector(state=>state.vendor)
   const {staffs} = useSelector(state=>state.staff)
+  const {serviceCount} = useSelector(state=>state.service)
+
   const [validated, setValidated] = useState(false);
   
   const [form, setForm] = useState({
     name: "",
     cNumber: "",
     email: "",
-    code: "",
+    code: 1001+ +serviceCount,
     status: "",
     product: "",
     sNumber: "",

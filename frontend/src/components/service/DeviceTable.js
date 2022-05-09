@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Modal, Table } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
 import { deleteDevice } from '../../action/serviceAction'
 
 const DeviceTable = ({ devices }) => {
@@ -15,6 +16,7 @@ const DeviceTable = ({ devices }) => {
     }
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const removeDevice = () => {
         dispatch(deleteDevice(id))
@@ -43,7 +45,7 @@ const DeviceTable = ({ devices }) => {
                                     {(new Date() - new Date(device.createdAt)) / 1000 / 60 / 60 / 24 < 366 ? <span style={{ color: "green" }}>In Warranty</span> : <span style={{ color: "red" }}>Out of Warranty</span>}
                                 </td>
                                 <td>
-                                    <button>Edit</button>
+                                    <button onClick={()=>navigate(`/dashboard/service/updateDevice/${device._id}`)}>Edit</button>
                                     <button onClick={()=>handleShow(device._id)}>Delete</button>
                                 </td>
                             </tr>

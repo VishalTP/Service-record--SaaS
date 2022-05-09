@@ -40,3 +40,14 @@ export const updateAProduct = (formData, id)=> async (dispatch)=>{
         dispatch({type: productActionType.UPDATE_PRODUCT_FAIL, payload: error.response.data.message})
     }
 }
+export const deleteProduct = (id)=> async (dispatch)=>{
+    try {
+        
+        const {data} = await axios.delete(`/api/v1/product/${id}`) 
+        
+        dispatch({type: productActionType.DELETE_PRODUCT_SUCCESS, payload: data})
+        
+    } catch (error) {
+        dispatch({type: productActionType.DELETE_PRODUCT_FAIL, payload: error.response.data.message})
+    }
+}

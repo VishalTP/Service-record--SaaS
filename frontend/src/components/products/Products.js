@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Button, Form, Table, Card } from 'react-bootstrap'
+import { Button, Form, Table, Card, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams, useLocation } from 'react-router-dom'
-import { addNewProduct, getAllProducts, updateAProduct } from '../../action/productAction'
+import { addNewProduct, deleteProduct, getAllProducts, updateAProduct } from '../../action/productAction'
 import './Product.css'
 
 const Products = () => {
@@ -36,6 +36,21 @@ const Products = () => {
         myForm.set("name", productName)
         dispatch(updateAProduct(myForm, path.pathname.split("/")[4]))
         navigate("/dashboard/product/list")
+    }
+
+
+    const [show, setShow] = useState(false);
+    const [id, setId] = useState("")
+
+    const handleClose = () => setShow(false);
+    const handleShow = (id) =>{
+        setId(id)
+        setShow(true)
+    }
+
+    const removeProduct = ()=>{
+        dispatch(deleteProduct(id))
+        setShow(false);
     }
     
     useEffect(() => {
@@ -75,12 +90,31 @@ const Products = () => {
                         products && products.map(product =>
                             <tr className="" key={product._id}>
                                 <td>{product.name}</td>
-                                <td><Button onClick={()=>editProduct(product._id, product.name)}>Edit</Button></td>
+                                <td>
+                                    <Button onClick={()=> editProduct(product._id, product.name)}>Edit</Button>
+                                    <Button onClick={()=> handleShow(product._id)}>Delete</Button>
+                                </td>
                             </tr>
                         )
                     }
                 </tbody>
             </Table>
+            <>
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure??</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={removeProduct}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
         </div>
     )
 }

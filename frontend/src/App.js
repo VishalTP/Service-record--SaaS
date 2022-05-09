@@ -14,7 +14,7 @@ import UserLogin from './components/user/UserLogin';
 import VendorClients from './components/vendor/VendorClients';
 import { useEffect } from 'react';
 import { getUserDetails } from './action/userAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProtectedRoute from './route/ProtectedRoute';
 import ServiceDetails from './components/service/ServiceDetails';
 import Report from './components/report/Report';
@@ -26,6 +26,7 @@ import NewDevice from './components/service/NewDevice';
 function App() {
 
   const dispatch = useDispatch()
+  const {isAuthenticated} = useSelector(state=>state.user)
 
   useEffect(()=>{
       dispatch(getUserDetails())
@@ -34,12 +35,13 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Navbar />
+       { isAuthenticated && <Navbar /> }
         <Routes>
           <Route exact path='/' element={<UserLogin />} />
           <Route exact path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route exact path='/dashboard/service/create' element={<NewService />} />
           <Route exact path='/dashboard/service/newDevice' element={<NewDevice />} />
+          <Route exact path='/dashboard/service/updateDevice/:id' element={<NewDevice />} />
           <Route exact path='/dashboard/service/:id' element={<ServiceDetails />} />
           <Route exact path='/dashboard/product/list/:id' element={<Products />} />
           <Route exact path='/dashboard/product/list' element={<Products />} />

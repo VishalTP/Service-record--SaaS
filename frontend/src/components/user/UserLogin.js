@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { loginUser } from '../../action/userAction'
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import './user.css'
 
 const UserLogin = () => {
 
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [type, setType] = useState("password")
     const {isAuthenticated} = useSelector(state=>state.user)
+    const pass = useRef()
+
     const [login, setLogin] = useState({
         userName: "",
         password: ""
@@ -24,17 +28,24 @@ const UserLogin = () => {
         dispatch(loginUser(myForm))
     }
     
+    const showPassword = ()=>{
+        pass.current.type==="password" ? setType("text"): setType("password")
+    }
+    
     useEffect(()=>{
         if(isAuthenticated)
             navigate("/home")
+        else
+            pass.current.type=type
 
-    }, [isAuthenticated])
+    }, [isAuthenticated, type])
 
   return (
-    <div>
+    <div className="loginUser">
+        <h2 className="mb-4">Service Record</h2>
        <Form>
-            <Form.Group className="mb-3">
-                <Form.Label>Username</Form.Label>
+            <Form.Group className="mb-4">
+                <Form.Label>Username:</Form.Label>
                 <Form.Control 
                     type="text" 
                     value={login.userName}
@@ -42,17 +53,24 @@ const UserLogin = () => {
                 />
             </Form.Group>
 
-            <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
+            <Form.Group className="mb-4 loginIntput">
+                <Form.Label>Password:</Form.Label>
                 <Form.Control 
                     type="password" 
                     value={login.password} 
                     onChange = {e => setLogin({...login, password: e.target.value})}
+                    ref={pass}
                 />
+                <div className="svg" onClick={showPassword}>
+                    {
+                       type==="password" ? <AiFillEye /> : <AiFillEyeInvisible />
+                    }
+                    
+                </div>
             </Form.Group>
 
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
-                Submit
+            <Button variant="primary" type="submit" onClick={handleSubmit} className="button mt-4">
+                Login
             </Button>
         </Form> 
     </div>

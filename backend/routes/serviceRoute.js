@@ -8,7 +8,9 @@ const {
   serviceReport,
   sendWhatsAppMsg,
   createDevice,
-  deleteDevice
+  deleteDevice,
+  updateDevice,
+  getDeviceDetails
 } = require("../controllers/serviceController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
@@ -38,9 +40,11 @@ router
   .route("/admin/device/new")
   .post(isAuthenticatedUser, authorizeRoles("admin"), createDevice);
 
+  router.route("/admin/device/:id").get(getDeviceDetails);
+
   router
   .route("/admin/device/:id")
-  .put(isAuthenticatedUser, authorizeRoles("admin"), deleteDevice)
+  .put(isAuthenticatedUser, authorizeRoles("admin"), updateDevice)
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteDevice);  
 
   router

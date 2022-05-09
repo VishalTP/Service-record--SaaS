@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
-import { createNewDevice } from '../../action/serviceAction'
+import { useNavigate, useParams } from 'react-router'
+import { createNewDevice, getDeviceDetails, updateDevice, updateService } from '../../action/serviceAction'
 import { getAllVendors } from '../../action/vendorAction'
 import serviceActionType from '../../actionTypes/serviceActionType'
 
 const NewDevice = () => {
     const { service } = useSelector(state => state.service)
     const { vendors } = useSelector(state => state.vendor)
-    const {success} = useSelector(state=>state.device)
+    const {loading, success, device} = useSelector(state=>state.device)
+    const [prevAmt, setPrevAmt] = useState(0)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const params = useParams()
+
     const [form, setForm] = useState({
         name: "",
         sNumber: "",
@@ -31,18 +34,42 @@ const NewDevice = () => {
         myForm.set("vendor", form.vendor)
         myForm.set("amount", form.amount)
         myForm.set("service", service._id)
-
-        dispatch(createNewDevice(myForm))
+        
+        params.id ? dispatch(updateDevice(myForm, device._id)) : dispatch(createNewDevice(myForm))
 
     }
 
+    const updatePendingAmount = ()=>{
+        console.log(prevAmt)
+        dispatch(updateService(service._id, {"pendingAmount": service.pendingAmount-prevAmt+(+device.amount)}))
+    }
+
     useEffect(()=>{
+        if(success || device===null) return
+        if(params.id){
+            console.log(device)
+            if(!device){
+                dispatch(getDeviceDetails(params.id))
+
+            }
+            else{
+                setPrevAmt(device.amount)
+                setForm({
+                    name: device.name,
+                    sNumber: device.serialNo,
+                    warranty: device.warranty,
+                    vendor: device.vendor,
+                    amount: device.amount
+                })
+            }
+        }
         dispatch(getAllVendors())
-    }, [])
+    }, [device])
 
     useEffect(()=>{
         if(!success) return
-
+        console.log("2nd")
+        updatePendingAmount()
         dispatch({type: serviceActionType.NEW_DEVICE_RESET})
         navigate(`/dashboard/service/${service._id}`)
     }, [success])
@@ -50,7 +77,7 @@ const NewDevice = () => {
     return (
         <div>
 
-            <Form className="" onSubmit={submitForm}>
+            <Form className="" onSubmit={e=> submitForm(e)}>
                 <Form.Group className="col-md-4" controlId="validationFormik02" >
                     <Form.Label>Device</Form.Label>
                     <Form.Control

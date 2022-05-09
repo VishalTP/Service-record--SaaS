@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import { getServiceDetails, updateService } from '../../action/serviceAction'
 import DeviceTable from './DeviceTable'
+import { jsPDF } from "jspdf";
 
 const ServiceDetails = () => {
     const dispatch = useDispatch()
@@ -17,6 +18,21 @@ const ServiceDetails = () => {
         const myForm = new FormData()
         myForm.set("status", status)
         dispatch(updateService(service._id, myForm))
+    }
+
+    const doc = new jsPDF();
+    const generatePdf = ()=>{
+
+        doc.text(`Customer: ${service.name}`, 10, 10);
+        doc.text(`Contact Number: ${service.contactNumber}`, 10, 20);
+        doc.text(`Amount: ${service.paidAmount+ service.pendingAmount}`, 10, 30);
+        const date = new Date()
+        const day = date.getUTCDay(),
+              dd = date.getDate(),
+              mm = date.getMonth(),
+              yy = date.getFullYear()
+        doc.text(`Date: ${dd} - ${mm} - ${yy}`, 10, 40);
+        doc.save("a4.pdf");
     }
 
     // useEffect(()=>{
@@ -72,6 +88,7 @@ const ServiceDetails = () => {
                     </Card  >
 
                     <Button onClick={()=>navigate("/dashboard/service/newDevice")}>Add Device</Button>
+                    <button onClick={generatePdf}>Print</button>
                 </div>
             }
             {
