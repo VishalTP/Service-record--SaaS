@@ -1,10 +1,12 @@
 import React from 'react'
 import ServiceCard from './ServiceCard'
 import { Table } from 'react-bootstrap';
+import './NewService.css'
 
-const AllService = ({services}) => {
+const AllService = ({ services }) => {
   return (
-    <Table striped >
+    <div className="table">
+      <Table  >
         <thead>
           <tr>
             <th>#</th>
@@ -22,6 +24,7 @@ const AllService = ({services}) => {
           {services && services.map((service, i) => <ServiceCard key={service._id} {...service} slNo={i + 1} />)}
         </tbody>
       </Table>
+    </div>
   )
 }
 

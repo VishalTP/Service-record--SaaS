@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import { updatePassword } from '../../action/userAction'
+import Sidebar from '../sidebar/Sidebar'
+import './user.css'
 
 const ChangePassword = () => {
 
@@ -38,7 +40,7 @@ const ChangePassword = () => {
             <Card.Body className="cardBody">
                 <Link to="/home">Dashboard</Link> / Change Password
             </Card.Body>
-            <div>
+            <div className="changePassword">
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>Old Password</Form.Label>
@@ -73,6 +75,7 @@ const ChangePassword = () => {
                 </Form>
 
             </div>
+            <Sidebar />
         </>
     )
 }

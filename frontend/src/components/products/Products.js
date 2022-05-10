@@ -3,6 +3,7 @@ import { Button, Form, Table, Card, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams, useLocation } from 'react-router-dom'
 import { addNewProduct, deleteProduct, getAllProducts, updateAProduct } from '../../action/productAction'
+import Sidebar from '../sidebar/Sidebar'
 import './Product.css'
 
 const Products = () => {
@@ -60,7 +61,7 @@ const Products = () => {
 
 
     return (
-        <div>
+        <>
             <Card>
                 <Card.Body className="cardBody"><Link to="/home">Dashboard</Link> / Products</Card.Body>
             </Card>
@@ -99,6 +100,7 @@ const Products = () => {
                     }
                 </tbody>
             </Table>
+            <Sidebar />
             <>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
@@ -115,7 +117,7 @@ const Products = () => {
                     </Modal.Footer>
                 </Modal>
             </>
-        </div>
+        </>
     )
 }
 

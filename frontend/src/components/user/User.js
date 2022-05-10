@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllUser } from '../../action/userAction'
 import { Link } from 'react-router-dom'
+import Sidebar from '../sidebar/Sidebar'
 
 const User = () => {
 
@@ -16,7 +17,7 @@ const User = () => {
   }, [])
 
   return (
-    <div>
+    <>
       <Card.Body className="cardBody">
         <Link to="/home">Dashboard</Link> / Staffs
       </Card.Body>
@@ -36,7 +37,7 @@ const User = () => {
           {
             staffs && staffs.map((staff, i) =>
 
-              <tr>
+              <tr key={staff._id}>
                 <td>{i + 1}</td>
                 <td>{staff.name}</td>
                 <td>{staff.email}</td>
@@ -47,7 +48,8 @@ const User = () => {
           }
         </tbody>
       </Table>
-    </div>
+      <Sidebar />
+    </>
   )
 }
 

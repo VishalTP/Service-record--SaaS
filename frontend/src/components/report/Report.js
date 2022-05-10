@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import { getReport } from '../../action/reportAction'
+import Sidebar from '../sidebar/Sidebar'
 
 
 const Report = () => {
@@ -62,6 +63,8 @@ const Report = () => {
                 </Card>
 
             </div>
+
+            <Sidebar />
 
         </>
     )

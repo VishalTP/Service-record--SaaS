@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import { getServiceDetails, updateService } from '../../action/serviceAction'
 import DeviceTable from './DeviceTable'
 import { jsPDF } from "jspdf";
+import { AiFillEdit, AiFillPrinter } from 'react-icons/ai';
+import { GrAdd } from 'react-icons/gr';
 
 const ServiceDetails = () => {
     const dispatch = useDispatch()
@@ -48,7 +50,7 @@ const ServiceDetails = () => {
             </Card.Body>
             {
                 service &&
-                <div className="row">
+                <div className="row mb-3">
                     <h1>{service.name}</h1>
                     <Card className="col-md-6">
                         <Card.Body>Number: {service.contactNumber}</Card.Body>
@@ -72,7 +74,7 @@ const ServiceDetails = () => {
                     </Card>
                     <Card className="col-md-6">
                         <Card.Body>Assigned to: {service.assignedTo}</Card.Body>
-                        <Card.Body>Vendor Code: {service.vendor}</Card.Body>
+                        <Card.Body>Vendor: {service.vendor}</Card.Body>
                     </Card  >
 
                     <Card className="col-md-6">
@@ -84,11 +86,14 @@ const ServiceDetails = () => {
                     <Card className="col-md-6">
                         <Card.Body>Pending Amount: {service.pendingAmount}</Card.Body>
                         <Card.Body>Paid Amount: {service.paidAmount}</Card.Body>
-                        <button onClick={()=>navigate(`/dashboard/service/update/payment/${service._id}`)}>Edit</button>
+                        <div className="actionButton">
+                            <button onClick={()=>navigate(`/dashboard/service/update/payment/${service._id}`)}><AiFillEdit /></button>
+                            <button onClick={()=>navigate("/dashboard/service/newDevice")}><GrAdd /></button>
+                            <button onClick={generatePdf}><AiFillPrinter /></button>
+
+                        </div>
                     </Card  >
 
-                    <Button onClick={()=>navigate("/dashboard/service/newDevice")}>Add Device</Button>
-                    <button onClick={generatePdf}>Print</button>
                 </div>
             }
             {

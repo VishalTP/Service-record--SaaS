@@ -5,6 +5,7 @@ import VendorCard from './VendorCard';
 import { Table, Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import Sidebar from '../sidebar/Sidebar';
 
 const Vendors = () => {
 
@@ -44,6 +45,7 @@ const Vendors = () => {
           </tbody>
         </Table>
       </div>
+      <Sidebar />
     </>
   )
 }

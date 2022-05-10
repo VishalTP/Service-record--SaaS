@@ -1,7 +1,7 @@
 import userActionType from '../actionTypes/userActionType'
 
 
-export const userReducer = (state ={error:null, isAuthenticated:false}, action)=>{
+export const userReducer = (state ={error:null, isAuthenticated:false, loading: true}, action)=>{
     switch(action.type){
         case userActionType.USER_LOGIN_REQUEST:
         case userActionType.UPDATE_PASSWORD_REQUEST:

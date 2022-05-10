@@ -31,3 +31,11 @@
     color: rgb(47, 167, 97);
     font-weight: 600;
 }
+
+.changePassword{
+    max-width: 500px;
+    /* margin: auto; */
+    /* border: 1px ; */
+    box-shadow: 0 4px 8px 0 rgba(102, 102, 102, 0.1);
+    padding: 2rem;
+}

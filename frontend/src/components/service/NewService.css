@@ -1,7 +1,51 @@
 .cardBody{
-    background-color: rgb(231, 230, 230);
+    /* background-color: rgb(231, 230, 230); */
     font-size: 1.2rem;
+    padding: 1rem 1rem 1rem 0;
+    
 }
 .cardBody a{
     text-decoration: none;
+}
+
+.card{
+    border: none;
+}
+
+.table{
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(102, 102, 102, 0.1);
+    /* color: rgb(65, 64, 64); */
+}
+td, tr, th {
+    color: rgb(170, 69, 69) !important;
+}
+
+/* th:nth-child(6),
+td:nth-child(6), */
+th:nth-child(7),
+td:nth-child(7),
+th:last-child,
+td:last-child{
+    text-align: right;
+}
+
+.serviceTr{
+    cursor: pointer;
+
+}
+
+.serviceTr svg:active{
+    transform: scale(1.1);
+}
+
+.actionButton{
+    display: flex;
+    justify-content: space-evenly;
+}
+.actionButton> button,
+.deviceButtons>button{
+    background: none;
+    border: none;
+    margin-left: 1rem;
 }

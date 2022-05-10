@@ -15,8 +15,8 @@ const UserLogin = () => {
     const pass = useRef()
 
     const [login, setLogin] = useState({
-        userName: "",
-        password: ""
+        userName: "admin",
+        password: "111111111"
     })
 
     const handleSubmit = (e)=>{

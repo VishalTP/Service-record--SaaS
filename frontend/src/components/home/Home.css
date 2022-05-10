@@ -7,29 +7,39 @@
 .topBar{
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(102, 102, 102, 0.1);
+    /* max-width: 1100px;   */
 }
 .topBar> div>div{
     position: absolute;
-    background-color: rgb(238, 234, 234);
+    background-color: rgb(246, 244, 244);
+    box-shadow: 0 4px 8px 0 rgba(102, 102, 102, 0.1);
 }
 .topBar>div>div>p{
-    padding: 10px 15px;
+    padding: 10px 19px;
     cursor: pointer;
     margin-bottom: 0;
+    border-bottom: 1px solid rgb(235, 232, 232);
 }
 
 .topBar>div>div>p:hover{
     background-color: rgb(226, 225, 225);
 }
 
-.options>button,
+/* .options>button, */
 .statusOptions>button
 {
     pointer-events: none;
+    background: none;
+    padding: .3rem 1.5rem;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(102, 102, 102, 0.2);
 }
-.statusOptions:hover,
-.options:hover
+/* .options:hover, */
+.statusOptions:hover
 {
     cursor: pointer;
 }
@@ -44,4 +54,18 @@
 
 .search>input{
     margin-right: 10px;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+}
+.pagination > button{
+    background: none;
+    border: none;
+    margin: auto 1rem;
+}
+
+.pagination > button:active{
+    transform: scale(1.5);
 }

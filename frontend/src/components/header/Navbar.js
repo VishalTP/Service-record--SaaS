@@ -14,7 +14,7 @@ const Navbar = () => {
     //     console.log(data)
     // }
     const dispatch = useDispatch()
-    const {isAuthenticated} = useSelector(state=>state.user)
+    const {isAuthenticated, user} = useSelector(state=>state.user)
     const navigate = useNavigate()
 
     const handleLogout = ()=>{
@@ -29,16 +29,13 @@ const Navbar = () => {
     }, [isAuthenticated])
 
     return (
-        <nav className="navBar">
+        <nav className="navBar mb-3">
             <div className="logo">
                 <p>Service Record</p>
             </div>
-            <p className="mid">Service Dashboard</p>
-            <div className="right d-flex">
-                <p>Hi User</p>
-                <button onClick={handleLogout}>Logout</button>
-            </div>
-        </nav>
+            <p>Hello {user.name}</p>             
+            <button onClick={handleLogout}>Logout</button>
+        </nav >
     )
 }
 

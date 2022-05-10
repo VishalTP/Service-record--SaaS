@@ -1,11 +1,11 @@
 import axios from 'axios'
 import serviceActionType from '../actionTypes/serviceActionType'
 
-export const getAllService = (vendor="", status="", name="", code="", amt=false)=> async (dispatch)=>{
+export const getAllService = (vendor="", status="", name="", code="", amt=false, page)=> async (dispatch)=>{
     try {
         dispatch({type: serviceActionType.ALL_SERVICE_REQUEST})
         
-        const {data} = await axios(`/api/v1/admin/service${vendor? `?vendor=${vendor}`:""}${status? `?status=${status}`:""}${name? `?name=${name}`:""}${code? `?serviceCode=${code}`:""}${amt? `?pendingAmount[gte]=1`:""}`) 
+        const {data} = await axios(`/api/v1/admin/service?page=${page}${vendor? `&vendor=${vendor}`:""}${status? `&status=${status}`:""}${name? `&name=${name}`:""}${code? `&serviceCode=${code}`:""}${amt? `&pendingAmount[gte]=1`:""}`) 
         
         dispatch({type: serviceActionType.ALL_SERVICE_SUCCESS, payload: data})
         

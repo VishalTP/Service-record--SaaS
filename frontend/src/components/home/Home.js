@@ -7,11 +7,12 @@ import './Home.css'
 
 import AllService from '../service/AllService'
 import { Button, Form } from 'react-bootstrap'
-
+import { AiFillCaretDown, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import Sidebar from '../sidebar/Sidebar'
 
 
 const Home = () => {
-  const { services } = useSelector(state => state.service)
+  const { services, serviceCount } = useSelector(state => state.service)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const options = useRef();
@@ -19,48 +20,51 @@ const Home = () => {
 
   const [status, setStatus] = useState("")
   const [search, setSearch] = useState("")
+  const [page, setPage] = useState(1)
 
-  const showMenu = (e)=>{
-    if(e.target.classList.contains("options")){
-        options.current.classList.toggle("disp")
-        statusOptions.current.classList.add("disp") 
+  const showMenu = (e) => {
+    if (e.target.classList.contains("options")) {
+      // options.current.classList.toggle("disp")
+      statusOptions.current.classList.add("disp")
     }
-    else if(e.target.classList.contains("statusOptions")){
+    else if (e.target.classList.contains("statusOptions")) {
       statusOptions.current.classList.toggle("disp")
-      options.current.classList.add("disp")
+      // options.current.classList.add("disp")
     }
-    else{
-      options.current.classList.add("disp")
+    else {
+      // options.current.classList.add("disp")
       statusOptions.current.classList.add("disp")
     }
   }
 
-  const searchService = ()=>{
+  const searchService = () => {
     setStatus("")
-    if(+search)
+    if (+search) {
       fetchService("", search)
+      setSearch("")
+    }
     else
       fetchService(search, "")
 
     // +search? fetchService("", search): fetchService(search, "")
   }
 
-  const fetchService = (name, code)=>{
-    dispatch(getAllService("", status, name, code))
+  const fetchService = (name, code) => {
+    dispatch(getAllService("", status, name, code, false, page))
 
   }
 
   useEffect(() => {
     fetchService()
     document.addEventListener("click", showMenu)
-    return ()=> document.removeEventListener("click", showMenu)
-  }, [dispatch, status])
+    return () => document.removeEventListener("click", showMenu)
+  }, [dispatch, status, page])
 
   return (
-    <div className="">
-      <div className="topBar">
-        <button onClick={() => navigate("/dashboard/service/create")}>Add new</button>
-        <div className="options">
+    <>
+      <div className="topBar mb-3">
+        <Button onClick={() => navigate("/dashboard/service/create")}>Add new</Button>
+        {/* <div className="options">
           <button >Select Menu</button>
           <div ref={options}  className="disp">
             <p onClick={()=>navigate('/dashboard/vendor')}>Vendors</p>
@@ -69,36 +73,45 @@ const Home = () => {
             <p onClick={()=>navigate('/dashboard/list/user')}>Staff</p>
             <p onClick={()=>navigate('/dashboard/change-password')}>Change Password</p>
           </div>
-        </div>
+        </div> */}
 
         <div className="statusOptions">
-          <button >Status</button>
-          <div ref={statusOptions}  className="disp">
-            <p onClick={()=>setStatus("")}>All</p>
-            <p onClick={()=>setStatus("Open")}>Open</p>
-            <p onClick={()=>setStatus("In Progress")}>In Progress</p>
-            <p onClick={()=>setStatus("Closed")}>Closed</p>
-            <p onClick={()=>setStatus("Returned")}>Returned</p>
+          <button >Status <AiFillCaretDown /></button>
+          <div ref={statusOptions} className="disp">
+            <p onClick={() => setStatus("")}>All</p>
+            <p onClick={() => setStatus("Open")}>Open</p>
+            <p onClick={() => setStatus("In Progress")}>In Progress</p>
+            <p onClick={() => setStatus("Closed")}>Closed</p>
+            <p onClick={() => setStatus("Returned")}>Returned</p>
           </div>
         </div>
         <div className="search">
-          <Form.Control 
-            type="text" 
-            placeholder=" Name/ Service code" 
+          <Form.Control
+            type="text"
+            placeholder=" Name/ Service code"
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
           <Button variant="outline-primary" onClick={searchService}>Search</Button>
         </div>
-        
+
       </div>
 
-      
-      <AllService services={services}/>
 
+      <AllService services={services} />
+      {
 
+      serviceCount > 8 && <div className="pagination">
+        <button disabled={page===1} onClick={()=>setPage(page-1)}> <AiOutlineLeft /> </button>
+        {page}
+        <button onClick={()=>setPage(page+1)} disabled={page === Math.ceil(serviceCount/8)}>
+          <AiOutlineRight />
+        </button>
+      </div>
+      }
+      <Sidebar />
 
-    </div>
+    </>
   )
 }
 

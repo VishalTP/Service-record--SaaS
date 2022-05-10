@@ -17,7 +17,7 @@ const NewService = () => {
   const {products} = useSelector(state=>state.product)
   const {vendors} = useSelector(state=>state.vendor)
   const {staffs} = useSelector(state=>state.staff)
-  const {serviceCount} = useSelector(state=>state.service)
+  const {serviceCount, loading} = useSelector(state=>state.service)
 
   const [validated, setValidated] = useState(false);
   
@@ -25,7 +25,7 @@ const NewService = () => {
     name: "",
     cNumber: "",
     email: "",
-    code: 1001+ +serviceCount,
+    code: 1001+ serviceCount,
     status: "",
     product: "",
     sNumber: "",
@@ -73,11 +73,11 @@ const NewService = () => {
   
   return (
     <>
-      <Card>
+      <Card className="card">
         <Card.Body className="cardBody"><Link to="/home">Dashboard</Link> / New Service</Card.Body>
       </Card>
       <Form noValidate validated={validated} className="row" onSubmit={submitForm}>
-        <Form.Group className="col-md-4" controlId="validationFormik02" >
+        <Form.Group className="col-md-4 mb-3" controlId="validationFormik02" >
           <Form.Label>Name</Form.Label>
           <Form.Control
             required
@@ -87,7 +87,7 @@ const NewService = () => {
             feedback="You must agree before submitting."
           />
         </Form.Group>
-        <Form.Group className="col-md-4">
+        <Form.Group className="col-md-4 mb-3">
           <Form.Label>Contact Number</Form.Label>
           <Form.Control
             type="number"
@@ -96,7 +96,7 @@ const NewService = () => {
             required
           />
         </Form.Group>
-        <Form.Group className="col-md-4" controlId="exampleForm.ControlInput1">
+        <Form.Group className="col-md-4 mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Email</Form.Label>
           <Form.Control
             required
@@ -107,7 +107,7 @@ const NewService = () => {
           />
         </Form.Group>
 
-        <Form.Group className="col-md-6" controlId="exampleForm.ControlInput1">
+        <Form.Group className="col-md-6 mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Service Code</Form.Label>
           <Form.Control
             required
@@ -116,7 +116,7 @@ const NewService = () => {
             onChange={(e) => { setForm({ ...form, code: e.target.value }) }}
           />
         </Form.Group>
-        <Form.Group className="col-md-6" controlId="exampleForm.ControlInput1">
+        <Form.Group className="col-md-6 mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Status</Form.Label>
           <Form.Select
             required
@@ -132,7 +132,7 @@ const NewService = () => {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="col-md-4" >
+        <Form.Group className="col-md-4 mb-3" >
           <Form.Label>Product Type</Form.Label>
           <Form.Select
             required
@@ -147,7 +147,7 @@ const NewService = () => {
 
           </Form.Select>
         </Form.Group>
-        <Form.Group className="col-md-4">
+        <Form.Group className="col-md-4 mb-3">
           <Form.Label>Serial Number</Form.Label>
           <Form.Control
             required
@@ -156,7 +156,7 @@ const NewService = () => {
             onChange={(e) => { setForm({ ...form, sNumber: e.target.value }) }}
           />
         </Form.Group>
-        <Form.Group className="col-md-4" >
+        <Form.Group className="col-md-4 mb-3" >
           <Form.Label>Location</Form.Label>
           <Form.Control
             required
@@ -166,7 +166,7 @@ const NewService = () => {
           />
         </Form.Group>
 
-        <Form.Group className="col-md-6" controlId="exampleForm.ControlInput1">
+        <Form.Group className="col-md-6 mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Assigned to</Form.Label>
           <Form.Select
             required
@@ -180,7 +180,7 @@ const NewService = () => {
             }
           </Form.Select>
         </Form.Group>
-        <Form.Group className="col-md-6" controlId="exampleForm.ControlInput1">
+        <Form.Group className="col-md-6 mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Vendor</Form.Label>
           <Form.Select
             required
@@ -198,7 +198,7 @@ const NewService = () => {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="col-md-6" controlId="exampleForm.ControlTextarea1">
+        <Form.Group className="col-md-6 mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Issue Details</Form.Label>
           <Form.Control
             required
@@ -208,7 +208,7 @@ const NewService = () => {
             onChange={(e) => { setForm({ ...form, issue: e.target.value }) }}
           />
         </Form.Group>
-        <Form.Group className="col-md-6 col-xs-12" controlId="exampleForm.ControlTextarea1">
+        <Form.Group className="col-md-6 col-xs-12 mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Device Details</Form.Label>
           <Form.Control
             required
@@ -218,7 +218,7 @@ const NewService = () => {
             onChange={(e) => { setForm({ ...form, device: e.target.value }) }}
           />
         </Form.Group>
-        <Button type="submit" >Submit</Button>
+        <Button type="submit" >Add</Button>
       </Form>
     </>
   )

@@ -3,6 +3,7 @@ import { Button, Modal, Table } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { deleteDevice } from '../../action/serviceAction'
+import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 
 const DeviceTable = ({ devices }) => {
 
@@ -44,9 +45,9 @@ const DeviceTable = ({ devices }) => {
                                 <td>
                                     {(new Date() - new Date(device.createdAt)) / 1000 / 60 / 60 / 24 < 366 ? <span style={{ color: "green" }}>In Warranty</span> : <span style={{ color: "red" }}>Out of Warranty</span>}
                                 </td>
-                                <td>
-                                    <button onClick={()=>navigate(`/dashboard/service/updateDevice/${device._id}`)}>Edit</button>
-                                    <button onClick={()=>handleShow(device._id)}>Delete</button>
+                                <td className="deviceButtons">
+                                    <button onClick={()=>navigate(`/dashboard/service/updateDevice/${device._id}`)}><AiFillEdit /></button>
+                                    <button onClick={()=>handleShow(device._id)}><AiFillDelete /></button>
                                 </td>
                             </tr>
                         )
